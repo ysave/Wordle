@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let guessedWords = [[]]
     let availableSpace = 1
 
-    let word = 'huans'
+    let word = 'start'
     let countGuessedWord = 0
 
     const keys = document.querySelectorAll('.keyboard-row button')
