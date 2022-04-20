@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let availableSpace = 1
 
     let word = 'huans'
+    let countGuessedWord = 0
 
     const keys = document.querySelectorAll('.keyboard-row button')
 
@@ -25,13 +26,45 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function getSquareColor(letter, i){
+        const correctLetter = word.includes(letter)
+
+        if(!correctLetter){
+            return"#283841"
+        }
+
+        const posOfLetter = word.charAt(i)
+        const correctPos = (letter === posOfLetter)
+
+        if(correctPos){
+            return "#3282B8"
+        }
+
+        return "#0F4C75"
+    }
+
     function newRow(){
         const currentWords = getCurrentWords()
         if(currentWords.length !== 5){
             window.alert("Word must be 5 letters")
         }
 
-        const currentWord = currentWords.join('')
+        const currentWord = currentWords.join("")
+
+        const firstLetterId = countGuessedWord * 5 + 1
+        const delay = 200
+        currentWords.forEach((letter, i) => {
+            setTimeout(() => {
+                const squareColor = getSquareColor(letter,i)
+
+                const letterId = firstLetterId + i
+                const letterEl = document.getElementById(letterId)
+                letterEl.classList.add("animate__flipInX")
+                letterEl.style = `background-color:${squareColor};border-color:${squareColor}`
+            }, delay * i)
+        })
+
+        countGuessedWord += 1
 
         if(currentWord === word){
             window.alert("Congratulations!")
