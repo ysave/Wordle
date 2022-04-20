@@ -77,6 +77,17 @@ document.addEventListener("DOMContentLoaded", () => {
         guessedWords.push([])
     }
 
+    function deleteLetter(){
+        const currentWords = getCurrentWords()
+        const removedLetter = currentWords.pop()
+
+        guessedWords[guessedWords.length - 1] = currentWords
+
+        const lastLetterEl = document.getElementById(String(availableSpace - 1))
+        lastLetterEl.textContent = ''
+        availableSpace = availableSpace - 1
+    }
+
     function createSquares() {
         const gameBoard = document.getElementById("board")
 
@@ -94,6 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if(letter === 'enter'){
                 newRow()
+                return
+            }
+
+            if(letter === 'del'){
+                deleteLetter()
                 return
             }
 
